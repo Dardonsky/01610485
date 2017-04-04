@@ -1,0 +1,234 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ejercicio_con_clases_3s
+{
+    class Program
+    {
+        public static void Main()
+        {
+
+
+            Console.WriteLine("WELCOME TO THE SYSTEM\n");
+
+            Console.WriteLine("1. Single service");
+            Console.WriteLine("2. Double service");
+            Console.WriteLine("3. Triple service");
+
+            Console.WriteLine("Select the type of package to apply: ");
+            int tipoPaquete = Console.Read();
+
+            switch (tipoPaquete)
+            {
+                case 1:
+                    Console.WriteLine("1. Cable Package");
+                    Console.WriteLine("2. Internet Package");
+                    Console.WriteLine("3. Phone Package");
+
+                    int tipoServicio = Console.Read();
+                    if (tipoServicio == 1)
+                    {
+                        Console.WriteLine("Quantity of cable receivers: ");
+                        int cantidadReceivers = Console.Read();
+
+                        //Paquete solo de cable
+                        Paquete1 Play1_cable = new Paquete1(
+                            cable: true,
+                            internet: false,
+                            lineaFija: false,
+                            rentaMensualServicio: 64.99,
+                            cantidad_equipo: cantidadReceivers,
+                            rentaMensualEquipo: 0.00,
+                            rentaMensualTotal: 0.00);
+
+                        Console.WriteLine("SUMMARY\n");
+                        Console.WriteLine("Type of service: Cable TV");
+                        Console.WriteLine("Receivers quantity:", cantidadReceivers);
+                    }
+                    else if (tipoServicio == 2)
+                    {
+                        Console.WriteLine("Modem quantity: ");
+                        int cantidadModems = Console.Read();
+                        if (cantidadModems > 2)
+                        {
+                            Console.WriteLine("Max quantity of modems allowed: 2");
+                        }
+                        //Paquete solo de internet
+                        Paquete1 Play1_internet = new Paquete1(
+                            cable: false,
+                            internet: true,
+                            lineaFija: false,
+                            rentaMensualServicio: 64.99,
+                            cantidad_equipo: cantidadModems,
+                            rentaMensualEquipo: 0.00,
+                            rentaMensualTotal: 0.00);
+                    }
+                    /*else if(tipoServicio == 3)
+                    {
+                        int cantidadModem;
+                        //Paquete solo de teléfono
+                        Paquete1 Play1_lineaFija = new Paquete1(
+                            cable: false,
+                            internet: false,
+                            lineaFija: true,
+                            rentaMensualServicio: 29.99,
+                            cantidad_equipo: 1);
+                    }*/
+                    break;
+                    /*
+                    //Paquete de internet y teléfono
+                    Paquete2y3 Play2_internet_lineaFija = new Paquete2y3(
+                        cable: false,
+                        internet: true,
+                        lineaFija: true,
+                        rentaMensual: 79.98);
+
+                    //Paquete de internet y cable
+                    Paquete2y3 Play2_internet_cable = new Paquete2y3(
+                        cable: true,
+                        internet: true,
+                        lineaFija: false,
+                        rentaMensual: 89.99);
+
+                    Paquete2y3 Play2_cable_lineaFija = new Paquete2y3(
+                        cable: true,
+                        internet: false,
+                        lineaFija: true,
+                        rentaMensual: 79.98);
+                    Paquete2y3 Play3 = new Paquete2y3(
+                        cable: true,
+                        internet: true,
+                        lineaFija: true,
+                        rentaMensual: 89.97);
+            }
+                    */
+
+                    //Inventario de equipo
+
+                    //Cajas de cable
+                    Equipment AB123456789C0 = new Equipment("AB123456789C0", 4.99);
+                    Equipment CD098765432E1 = new Equipment("CD098765432E1", 4.99);
+                    Equipment EF789456123G0 = new Equipment("EF789456123G0", 4.99);
+                    Equipment GH987654321I0 = new Equipment("GH987654321I0", 4.99);
+                    Equipment IJ321654987K0 = new Equipment("IJ321654987K0", 4.99);
+
+                    //Modem multiuso
+                    Equipment ZY123456789X0 = new Equipment("ZY123456789X0", 0.00);
+                    Equipment WV098765432U1 = new Equipment("WV098765432U1", 0.00);
+                    Equipment A0E81161B8798 = new Equipment("A0E81161B8798", 0.00);
+
+
+                    /*Cliente DanielPerez = new Cliente(Play1_cable, IJ321654987K0);
+                    Cliente MarioMartinez = new Cliente(Play2_cable_lineaFija, AB123456789C0);
+                    Cliente MariaSanchez = new Cliente(Play2_internet_lineaFija);
+                    Cliente RobertMendoza = new Cliente(Play3);
+                    Cliente FernandoDeLaCruz = new Cliente(Play1_lineaFija);*/
+            }
+            Console.ReadKey();
+        }
+        class Cliente
+        {
+            public Paquete1 servicioContratado;
+            public Equipment equipoContratado1;
+
+            public Cliente(Paquete1 paquete, Equipment equipment)
+            {
+                this.servicioContratado = paquete;
+                this.equipoContratado1 = equipment;
+            }
+        }
+        class Paquete1
+        {
+            public bool cable;
+            public bool internet;
+            public bool lineaFija;
+            public int cantidad_equipo;
+            protected double __renta_mensual_servicio;
+            protected double __renta_mensual_equipo;
+            protected double __renta_mensual_total;
+
+            public double rentaMensualServicio
+            {
+                get
+                {
+                    return this.__renta_mensual_servicio;
+                }
+            }
+            public double rentaMensualEquipo
+            {
+                get
+                {
+                    return this.__renta_mensual_equipo;
+                }
+            }
+            public double rentaMensualTotal
+            {
+                get
+                {
+                    return this.__renta_mensual_total;
+                }
+            }
+            public Paquete1(bool cable, bool internet, bool lineaFija, double rentaMensualServicio, int cantidad_equipo, double rentaMensualEquipo, double rentaMensualTotal)
+            {
+                this.cable = cable;
+                this.internet = internet;
+                this.lineaFija = lineaFija;
+                this.__renta_mensual_servicio = rentaMensualServicio;
+                this.__renta_mensual_equipo = rentaMensualEquipo * cantidad_equipo;
+                this.__renta_mensual_total = rentaMensualServicio + rentaMensualEquipo;
+            }
+        }
+        class Paquete2y3
+        {
+            public bool cable;
+            public bool internet;
+            public bool lineaFija;
+            public int cantidad_equipo_cable;
+            public int cantidad_equipo_telint;
+            protected double __renta_mensual_servicio;
+
+            public double rentaMensual
+            {
+                get
+                {
+                    return this.__renta_mensual_servicio;
+                }
+            }
+            public Paquete2y3(bool cable, bool internet, bool lineaFija, double rentaMensual, int cantidad_equipo)
+            {
+                this.cable = cable;
+                this.internet = internet;
+                this.lineaFija = lineaFija;
+                this.__renta_mensual_servicio = rentaMensual;
+            }
+        }
+        class Equipment
+        {
+            protected string MAC;
+            protected double renta;
+
+            public string Equipo
+            {
+                get
+                {
+                    return this.MAC;
+                }
+            }
+            public double __renta
+            {
+                get
+                {
+                    return this.__renta;
+                }
+            }
+            public Equipment(string MAC, double renta)
+            {
+                this.MAC = MAC;
+                this.renta = __renta;
+            }
+        }
+    }
+}
